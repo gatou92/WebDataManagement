@@ -11,7 +11,7 @@ class SomeClass(Resource):
         print 'query[1]=' + quer[1]
         print 'query[2]=' + quer[2]
         try:
-            conn = psycopg2.connect("dbname='imdb_movies' user='postgres' host='localhost' password='KostisT10@@@'")
+            conn = psycopg2.connect("dbname='imdb_movies' user='postgres' host='localhost' password='****'")
         except:
             print "I am unable to connect to the database"
 
