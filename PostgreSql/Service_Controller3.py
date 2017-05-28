@@ -47,12 +47,15 @@ def service_controller3(quer, cur):
                                                            WHERE a.fname = %s AND a.lname = %s
                                                            GROUP BY a.fname, a.lname
                                                            """
-
-        if len(quer)== 2 :
-            arg = quer[1], quer[1]
+        if len(quer) == 3:
+            print quer[1]
+            if quer[1] == 'firstname':
+                arg = quer[2], None
+            else:
+                arg = None, quer[2]
             cur.execute(qshortactname, arg)
-        else :
-            arg = quer[1], quer[2]
+        else:
+            arg = quer[2], quer[3]
             cur.execute(qshortactnameAND, arg)
 
         rows = cur.fetchall()

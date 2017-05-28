@@ -1,6 +1,7 @@
 def service_controller2(quer, cur):
 
     print len(quer)
+
     # queries for actor and movie acted in info when Actor ID is given
     qactorid = """      SELECT a.fname, a.lname,COALESCE(a.gender, 0)
                                    FROM actors a
@@ -75,11 +76,16 @@ def service_controller2(quer, cur):
         # Actor first or last name is given
 
         # argument to pass to query execution
-        if len(quer)==2:
-            arg = quer[1], quer[1]
+        if len(quer)==3:
+            print quer[1]
+            if quer[1]=='firstname':
+                arg = quer[2], None
+            else:
+                arg = None, quer[2]
             cur.execute(qactorname, arg)
-        else :
-            arg = quer[1], quer[2]
+
+        else:
+            arg = quer[2], quer[3]
             cur.execute(qactornameAND, arg)
         # fetch results in rows
         rows = cur.fetchall()
@@ -97,11 +103,15 @@ def service_controller2(quer, cur):
                 diction.append(someDict)
 
                 # execute query for movies acted in
-        if len(quer) == 2:
-            arg = quer[1], quer[1]
+        if len(quer) == 3:
+            print quer[1]
+            if quer[1] == 'firstname':
+                arg = quer[2], None
+            else:
+                arg = None, quer[2]
             cur.execute(qactmoviesname, arg)
         else:
-            arg = quer[1], quer[2]
+            arg = quer[2], quer[3]
             cur.execute(qactmoviesnameAND, arg)
       #  cur.execute(qactmoviesname, arg)
         rows = cur.fetchall()

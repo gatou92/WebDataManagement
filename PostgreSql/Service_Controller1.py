@@ -58,7 +58,6 @@ def service_controller1(quer, cur):
                     'ID': row[0],
                     'Title': row[1],
                     'Year': row[2],
-
                 }
                 # append the temporary dictionary to dict
                 diction.append(tempDict)
