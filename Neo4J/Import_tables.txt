@@ -1,0 +1,93 @@
+############   MOVIES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/movies.csv" AS row Create (:movies{
+idmovies:toInt(row.idmovies),
+title:row.title,
+year:row.year,
+number:toInt(row.number),
+type:row.type,
+location:row.location,
+language:row.language
+});
+
+
+############   ACTORS   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/actors.csv" AS row Create (:actors{
+idactors:toInt(row.idactors),
+lname:row.lname,
+fname:row.fname,
+mname:row.mname,
+gender:toInt(row.gender),
+number:toInt(row.number)
+});
+
+
+############   KEYWORDS   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/keywords.csv" AS row Create (:keywords{
+idkeywords:toInt(row.idkeywords),
+keyword:row.keyword
+});
+
+
+############   GENRES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/genres.csv" AS row Create (:genres{
+idgenres:toInt(row.idgenres),
+genre:row.genre
+});
+
+
+############   MOVIES_GENRES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/movies_genres.csv" AS row Create (:movies_genres{
+idmovies_genres:toInt(row.idmovies_genres)
+});
+
+
+############   ACTED_IN   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/acted_in.csv" AS row Create (:acted_in{
+idacted_in:toInt(row.idacted_in),
+character:row.character,
+billing_position:toInt(row.billing_position)
+});
+
+
+############   MOVIES_KEYWORDS   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/movies_keywords.csv" AS row Create (:movies_keywords{
+idmovies_keywords:toInt(row.idmovies_keywords)
+});
+
+
+############   SERIES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/series.csv" AS row Create (:series{
+idseries:toInt(row.idseries),
+name:row.name,
+season:toInt(row.season),
+number:toInt(row.number)
+});
+
+
+
+############   AKA_TITLES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/aka_titles.csv" AS row Create (:aka_titles{
+idaka_titles:toInt(row.idaka_titles),
+title:row.title,
+location:row.location,
+year:row.year
+});
+
+
+############   AKA_NAMES   ###########
+
+USING PERIODIC COMMIT 1000 LOAD CSV WITH HEADERS FROM "file:/tmp/aka_names.csv" AS row Create (:aka_names{
+idaka_names:toInt(row.idaka_names),
+name:row.name
+});
+
+

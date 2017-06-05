@@ -1,0 +1,37 @@
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/movies_keywords.csv" AS row
+MATCH (a:movies {idmovies:toInt(row.idmovies)})
+MATCH (b:keywords {idkeywords:toInt(row.idkeywords)})
+MERGE (a)-[:MOVIE_KEYWORD
+]->(b);
+
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/movies_genres.csv" AS row
+MATCH (a:movies {idmovies:toInt(row.idmovies)})
+MATCH (b:genres {idgenres:toInt(row.idgenres)})
+MERGE (a)-[:MOVIE_GENRE
+]->(b);
+
+
+MATCH (b:series {idseries:toInt(row.idseries)})
+MERGE (a)-[:RELATED_TO_SERIES {
+name:coalesce(row.name, "N/A"),
+season:coalesce(toInt(row.season), 0),
+number:coalesce(toInt(row.number), 0)
+}]->(b);
+
+
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/aka_titles.csv" AS row
+MATCH (a:movies {idmovies:toInt(row.idmovies)})
+MATCH (b:aka_titles {idaka_titles:toInt(row.idaka_titles)})
+MERGE (a)-[:ALSO_KNOWN_AS {
+title:coalesce(row.title, "N/A"),
+location:coalesce(row.location, "N/A"),
+year:coalesce(toInt(row.year), 0)
+}]->(b);
+
+
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/aka_names.csv" AS row
+MATCH (a:actors {idactors:toInt(row.idactors)})
+MATCH (b:aka_names {idaka_names:toInt(row.idaka_names)})
+MERGE (a)-[:NICKNAME {
+name:coalesce(row.name, "N/A")
+}]->(b);

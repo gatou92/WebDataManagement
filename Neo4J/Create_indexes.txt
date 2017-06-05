@@ -1,0 +1,10 @@
+CREATE CONSTRAINT ON (t:actors) ASSERT t.idactors IS UNIQUE;
+CREATE CONSTRAINT ON (t:aka_names) ASSERT t.idaka_names IS
+UNIQUE;
+CREATE CONSTRAINT ON (t:aka_titles) ASSERT t.idaka_titles IS
+UNIQUE;
+CREATE CONSTRAINT ON (t:genres) ASSERT t.idgenres IS UNIQUE;
+CREATE CONSTRAINT ON (t:keywords) ASSERT t.idkeywords IS
+UNIQUE;
+CREATE CONSTRAINT ON (t:movies) ASSERT t.idmovies IS UNIQUE;
+CREATE CONSTRAINT ON (t:series) ASSERT t.idseries IS UNIQUE;
