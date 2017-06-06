@@ -47,7 +47,7 @@ billing_position:coalesce(toInt(row.billing_position), 0)
 }]->(b);
 
 
-USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM “file:/tmp/acted_in.csv" AS row
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/acted_in.csv" AS row
 MATCH (a:actors {idactors:toInt(row.idactors)})
 MATCH (b:series {idseries:toInt(row.idseries)})
 MERGE (a)-[:ACTED_CHARACTER {
