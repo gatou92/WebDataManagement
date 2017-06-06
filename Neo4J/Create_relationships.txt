@@ -11,6 +11,8 @@ MERGE (a)-[:MOVIE_GENRE
 ]->(b);
 
 
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/series.csv" AS row
+MATCH (a:movies {idmovies:toInt(row.idmovies)})
 MATCH (b:series {idseries:toInt(row.idseries)})
 MERGE (a)-[:RELATED_TO_SERIES {
 name:coalesce(row.name, "N/A"),
@@ -34,4 +36,21 @@ MATCH (a:actors {idactors:toInt(row.idactors)})
 MATCH (b:aka_names {idaka_names:toInt(row.idaka_names)})
 MERGE (a)-[:NICKNAME {
 name:coalesce(row.name, "N/A")
+}]->(b);
+
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "file:/tmp/acted_in.csv" AS row
+MATCH (a:actors {idactors:toInt(row.idactors)})
+MATCH (b:movies {idmovies:toInt(row.idmovies)})
+MERGE (a)-[:ACTED_CHARACTER {
+character:coalesce(row.character, "N/A"),
+billing_position:coalesce(toInt(row.billing_position), 0)
+}]->(b);
+
+
+USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM “file:/tmp/acted_in.csv" AS row
+MATCH (a:actors {idactors:toInt(row.idactors)})
+MATCH (b:series {idseries:toInt(row.idseries)})
+MERGE (a)-[:ACTED_CHARACTER {
+character:coalesce(row.character, "N/A"),
+billing_position:coalesce(toInt(row.billing_position), 0)
 }]->(b);
