@@ -1,107 +1,46 @@
 from flask_restful import Api, Resource
 from flask import request, jsonify, Flask, Blueprint
 import psycopg2
-
 from pymongo import MongoClient
-
+from mongo_sc1 import mongo_sc1
+from mongo_sc2 import mongo_sc2
+from mongo_sc3 import mongo_sc3
+from mongo_sc4 import mongo_sc4
+from mongo_sc5 import mongo_sc5
 class Queries(Resource):
 
     def get(self):
 
-        #receive argument from url
-        sc = request.args.get('sc_arg')
-        print sc
-        quer = sc.split('_')
-        print 'Service Controller:'+quer[0]
-        print 'Argument' + quer[1]
-
+        # create MongoClient
         client = MongoClient('localhost', 27017)
+
+        # create database
         db = client.IMDB
 
-        cursor = db.movies.find({'idmovies': quer[1]})
-        diction = []
+        #receive argument from url
+        sc = request.args.get('sc_arg')
 
-        for doc in cursor:
-            print(doc)
-            print doc['title']
-            tempDict = {
-                'ID': doc['idmovies'],
-                'Title': doc['title'],
-                'Year': doc['year']
+        #split argument with dash as seperator
+        #save results to quer
+        quer = sc.split('_')
 
-            }
-            # append the temporary dictionary to dict
-            diction.append(tempDict)
+        #quer[0] shows the service controller
+        print 'Service Controller:'+quer[0]
 
-        cursor1 = db.series.aggregate (
-        [
-            { "$match": {"idmovies":"3"} },
-
-            {
-            "$lookup":{
-                    "from": "movies",
-                    "localField": "idmovies",
-                    "foreignField": "idmovies",
-                    "as": "movies_series"
-                    }
-            }
-
-        ] )
-
-        cursor2 = db.genres.aggregate(
-            [
-             #   {"$match": {"idmovies": "3"}},
-
-                {
-                    "$lookup": {
-                        "from": "movies_genres",
-                        "localField": "idgenres",
-                        "foreignField": "idgenres",
-                        "as": "movies1"
-                    }
-                },
-                {
-                    "$unwind": "$movies1"
-                },
-
-                {
-                    "$lookup": {
-                        "from": "movies",
-                        "localField": "idmovies",
-                        "foreignField": "idmovies",
-                        "as": "movies2"
-                    }
-                }
-
-
-            ])
-
-        print 'Cursor'
-
-
-        for doc in cursor1:
-            print(doc)
-            for key in doc.keys():
-                print(key)
-
-            tempDict = {
-                'Number': doc['number'],
-                'Season': doc['season'],
-                'Series Name': doc['name']
-
-            }
-            # append the temporary dictionary to dict
-            diction.append(tempDict)
-        print 'Cursor 2'
-
-        for doc in cursor2:
-            print(doc)
-            for key in doc.keys():
-                print(key)
+        if quer[0]=='sc1':
+            diction = mongo_sc1(quer, db)
+        if quer[0] == 'sc2':
+            diction = mongo_sc2(quer, db)
+        if quer[0] == 'sc3':
+            diction = mongo_sc3(quer, db)
+        if quer[0] == 'sc4':
+            diction = mongo_sc4(quer, db)
+        if quer[0] == 'sc5':
+            diction = mongo_sc5(quer, db)
 
         return jsonify(diction)
 
-
+#initialise constants
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 api.add_resource(Queries, '/user/query/')
@@ -115,5 +54,5 @@ app.register_blueprint(api_bp)
 def index():
     return jsonify({'status': 200, 'success': True})
 
-
+#determine host and port
 app.run(host='localhost', port=9090)
