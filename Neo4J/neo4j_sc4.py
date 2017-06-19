@@ -4,7 +4,7 @@ def neo4j_sc4(quer, session):
     if len(quer)==3:
 
         qstat = session.run("MATCH (a:movies) "
-                            "-[r:MOVIE_GENRE]->(g:genres) WHERE g.genre = {genre} AND a.year >= {year} "
+                            "-[r:MOVIE_GENRE]->(g:genres) WHERE g.genre = {genre} AND a.year = {year} "
                             "RETURN a.title , a.year ORDER BY a.year, a.title", {'genre': quer[1] ,'year': quer[2]})
 
         for record in qstat:
