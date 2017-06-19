@@ -20,7 +20,7 @@ class Queries(Resource):
 
         #connect to database
         try:
-            conn = psycopg2.connect("dbname='imdb_movies' user='postgres' host='localhost' password='KostisT10@@@'")
+            conn = psycopg2.connect("dbname='IMDB' user='postgres' host='localhost' password='476133'")
         except:
             print "Unable to connect to the database"
 

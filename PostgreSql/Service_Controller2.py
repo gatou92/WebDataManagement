@@ -7,7 +7,7 @@ def service_controller2(quer, cur):
                                    FROM actors a
                                    WHERE a.idactors= %s """
 
-    qactmoviesid = """  SELECT DISTINCT  m.title, m.year
+    qactmoviesid = """  SELECT DISTINCT  m.title, m.year, m.idmovies
                                    FROM movies m
                                    JOIN acted_in ai
                                    ON m.idmovies = ai.idmovies
@@ -21,7 +21,7 @@ def service_controller2(quer, cur):
                                        from actors a
                                        WHERE a.fname= %s OR a.lname=%s  """
 
-    qactmoviesname = """    SELECT DISTINCT  m.title, m.year
+    qactmoviesname = """    SELECT DISTINCT  m.title, m.year, m.idmovies
                                        FROM movies m
                                        JOIN acted_in ai
                                        ON m.idmovies = ai.idmovies
@@ -35,7 +35,7 @@ def service_controller2(quer, cur):
                                            from actors a
                                            WHERE a.fname= %s AND a.lname=%s  """
 
-    qactmoviesnameAND = """    SELECT DISTINCT  m.title, m.year
+    qactmoviesnameAND = """    SELECT DISTINCT  m.title, m.year, m.idmovies
                                            FROM movies m
                                            JOIN acted_in ai
                                            ON m.idmovies = ai.idmovies
@@ -68,6 +68,7 @@ def service_controller2(quer, cur):
             for row in rows:
                 if row is not None:
                     someDict = {
+                        'ID': row[2],
                         'Title': row[0],
                         'Year': row[1]
                     }
@@ -121,6 +122,7 @@ def service_controller2(quer, cur):
             print "   ", row[0]
             if row[0] is not None:
                 someDict = {
+                    'ID': row[2],
                     'Title': row[0],
                     'Year': row[1],
 
