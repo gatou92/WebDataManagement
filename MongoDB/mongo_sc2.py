@@ -64,6 +64,7 @@ def mongo_sc2(quer, db):
 
                     #create dictionary for results
                     tempDict = {
+                        'ID': id,
                         'Title': cursort[0],
                         'Year': cursory[0]
 
@@ -97,6 +98,7 @@ def mongo_sc2(quer, db):
 
                     #create dictionary
                     tempDict = {
+                        'ID':id,
                         'Title': cursort[0],
                         'Year': cursory[0]
 
@@ -126,6 +128,7 @@ def mongo_sc2(quer, db):
                 #create dictionary with title and year
                 for m in cursormv:
                     tempDict = {
+                        'ID': id,
                         'Title': m['title'],
                         'Year': m['year']
 
