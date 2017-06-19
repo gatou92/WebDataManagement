@@ -1,3 +1,12 @@
+#################################################################
+#################################################################
+###########                                           ###########
+###########          PostgreSQL - Main                ###########
+###########                                           ###########
+#################################################################
+#################################################################
+
+# Import Libraries
 from flask_restful import Api, Resource
 from flask import request, jsonify, Flask, Blueprint
 import psycopg2
@@ -7,14 +16,14 @@ from Service_Controller3 import service_controller3
 from Service_Controller4 import service_controller4
 from Service_Controller5 import service_controller5
 
-class Queries(Resource):
+class Queries(Resource): 
 
     def get(self):
 
-        #receive argument from url
+        #receive argument from url (http get request)
         sc = request.args.get('sc_arg')
         print sc
-        quer = sc.split('_')
+        quer = sc.split('_')  #split the arguments
         print 'Service Controller:'+quer[0]
         print 'Argument' + quer[1]
 
@@ -45,7 +54,7 @@ class Queries(Resource):
 
         return jsonify(diction)
 
-
+#Establishment of the connection with the API
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 api.add_resource(Queries, '/user/query/')
@@ -53,11 +62,8 @@ api.add_resource(Queries, '/user/query/')
 app = Flask(__name__)
 app.register_blueprint(api_bp)
 
-
-
 @app.route('/')
 def index():
     return jsonify({'status': 200, 'success': True})
-
 
 app.run(host='localhost', port=9090)
