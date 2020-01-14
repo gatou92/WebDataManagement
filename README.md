@@ -1,6 +1,6 @@
 #IN4331-Web Data Management
 
-Core Idea: Develop a movie informaiton web service
+Core Idea: Develop a movie information web service
 Create multiple backends for the web service
 - Relational backend using PostgresSQL
 - Document-based using MongoDB
