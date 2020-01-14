@@ -1,6 +1,4 @@
-# IN4331-Web Data Management
-by 
-John, Maria, Kostas and Ingmar
+i# IN4331-Web Data Management
 
 Core Idea: Develop a movie informaiton web service
 Create multiple backends for the web service
@@ -19,7 +17,7 @@ Data is provided as a Posgres backup file, this is first set-up by doing the fol
 - Explore data using query tool
 
 ## Getting serious
-It have been decided to use Java as the core programming language. The RESTFul Web Services are implemented. The web service calls via JSON. The web service endpoints are defined for the required functionality. And finally the service is connected to the backend data storage.
+It have been decided to use Python as the core programming language. The RESTFul Web Services are implemented. The web service calls via JSON. The web service endpoints are defined for the required functionality. And finally the service is connected to the backend data storage.
 
 ## Making it hard
 Two additional back ends are used. The data is converted to the right format, this will be tricky. The web service is connected to the new backend. This is done to see how different technologies behave in the same usage scenario. To do this properly it must be running on at least three machine at the same time. This can be done using virtual machines or on different laptops.
